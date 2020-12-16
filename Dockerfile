@@ -2,12 +2,13 @@ FROM ubuntu:bionic
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
+RUN echo "Etc/UTC" > /etc/timezone
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN echo "Etc/UTC" > /etc/timezone
+RUN apt-get install -y --fix-missing sudo wget curl gnupg git file apt-utils nano zip unzip build-essential apt-transport-https
+RUN apt-get install -y --fix-missing openssh-client rsync snapd openjdk-8-jre openjdk-8-jdk jq dpkg-dev
 
-RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip build-essential openssh-client rsync sudo snapd apt-transport-https openjdk-8-jre openjdk-8-jdk jq dpkg-dev net-tools
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH=$PATH:$JAVA_HOME/bin
 RUN java -version
