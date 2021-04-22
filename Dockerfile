@@ -2,13 +2,12 @@ FROM ubuntu:bionic
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
-RUN echo "Etc/UTC" > /etc/timezone
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN apt-get install -y --fix-missing sudo wget curl gnupg git file apt-utils nano zip unzip build-essential apt-transport-https
-RUN apt-get install -y --fix-missing openssh-client rsync snapd openjdk-8-jre openjdk-8-jdk jq dpkg-dev
+RUN echo "Etc/UTC" > /etc/timezone
 
+RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip build-essential openssh-client rsync sudo snapd apt-transport-https openjdk-8-jre openjdk-8-jdk jq dpkg-dev
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH=$PATH:$JAVA_HOME/bin
 RUN java -version
@@ -59,7 +58,8 @@ RUN $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager "build-tools;27.0.0" \
 RUN $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager --list
 
 # Install flutter
-RUN git clone https://github.com/flutter/flutter.git -b beta --depth 1
+RUN git clone https://github.com/flutter/flutter.git -b stable --depth 1
 ENV PATH="/flutter/bin:${PATH}"
 RUN yes | flutter doctor --android-licenses && flutter doctor
+RUN flutter upgrade
 RUN flutter precache
