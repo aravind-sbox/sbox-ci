@@ -24,4 +24,6 @@ RUN curl -sL https://sentry.io/get-cli/ | bash
 RUN wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/dart.gpg
 RUN echo 'deb [signed-by=/usr/share/keyrings/dart.gpg arch=amd64] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main' | sudo tee /etc/apt/sources.list.d/dart_stable.list
 RUN apt-get update -y
-RUN apt-get install dart && dart --version
+RUN apt-get install -y dart libsecret-1-0 libjsoncpp1 && dart --version
+ENV PATH=$PATH:/root/.pub-cache/bin
+RUN dart pub global activate flutter_to_debian
