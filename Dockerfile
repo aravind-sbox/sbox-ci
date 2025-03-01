@@ -30,7 +30,7 @@ RUN sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools" "cmd
 
 # Set environment variables for NVM
 ENV NVM_DIR /root/.nvm
-ENV NODE_VERSION 22
+ENV NODE_VERSION 22.14.0
 
 # Download and install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
