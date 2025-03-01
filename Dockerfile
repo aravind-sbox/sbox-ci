@@ -28,10 +28,24 @@ RUN yes | sdkmanager --licenses > /dev/null
 # Install required Android SDK components
 RUN sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools" "cmdline-tools;latest"
 
-# Download & Install Node JS
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get update -y && apt-get install -y nodejs && \
-    npm install -g firebase-tools
+# # Download & Install Node JS
+# RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+#     apt-get update -y && apt-get install -y nodejs && \
+#     npm install -g firebase-tools
+
+# Download and install nvm:
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+# in lieu of restarting the shell
+RUN \. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+RUN nvm install 22
+# Verify the Node.js version:
+RUN node -v
+RUN nvm current
+# Verify npm version:
+RUN npm -v
+# Install firebase tools
+RUN npm install -g firebase-tools
 
 # Download & Install Sentry CLI
 # RUN curl -sL https://sentry.io/get-cli/ | bash
