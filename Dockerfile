@@ -57,6 +57,7 @@ RUN npm install -g firebase-tools
 RUN git clone --single-branch -b stable https://github.com/flutter/flutter.git
 RUN mkdir -p /flutter/bin/cache
 ENV PATH=$PATH:$HOME/flutter/bin
+RUN git config --global --add safe.directory /flutter
 # Create a non-root user to run Flutter
 RUN useradd -ms /bin/bash flutteruser
 USER flutteruser
