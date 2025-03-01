@@ -53,9 +53,8 @@ RUN npm install -g firebase-tools
 # Download & Install Sentry CLI
 # RUN curl -sL https://sentry.io/get-cli/ | bash
 
-# Create a non-root user
-RUN adduser -D flutteruser
-# Switch to the new user
+# Create a non-root user to run Flutter
+RUN useradd -ms /bin/bash flutteruser
 USER flutteruser
 
 # Download Flutter SDK
