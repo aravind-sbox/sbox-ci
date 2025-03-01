@@ -41,7 +41,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
 
 # Add NVM to PATH
 ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
+RUN ls -l $NVM_DIR
+RUN ls -l $NVM_DIR/versions/node/
+RUN echo $PATH
 # Verify installation (optional, good for debugging)
 RUN node -v \
     && npm -v \
