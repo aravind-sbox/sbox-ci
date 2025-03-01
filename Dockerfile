@@ -56,6 +56,7 @@ RUN npm install -g firebase-tools
 # Download Flutter SDK
 RUN git clone --single-branch -b stable https://github.com/flutter/flutter.git
 ENV PATH=$PATH:$HOME/flutter/bin
+RUN mkdir -p /flutter/bin/cache
 
 # Create a non-root user to run Flutter
 RUN useradd -ms /bin/bash flutteruser
