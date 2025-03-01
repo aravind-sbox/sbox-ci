@@ -39,15 +39,13 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-# Add NVM to PATH
+# Add Node to PATH
 ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN ls -l $NVM_DIR
 RUN ls -l $NVM_DIR/versions/node/
 RUN echo $PATH
 # Verify installation (optional, good for debugging)
-RUN node -v \
-    && npm -v \
-    && nvm current
+RUN node -v && npm -v 
 
 # Install firebase tools
 RUN npm install -g firebase-tools
