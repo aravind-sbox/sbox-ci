@@ -7,7 +7,7 @@ RUN apt-get update -y && apt-get upgrade -y
 
 RUN echo "Etc/UTC" > /etc/timezone
 
-RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip xz-utils build-essential openssh-client rsync sudo snapd apt-transport-https openjdk-8-jre openjdk-8-jdk jq dpkg-dev clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip xz-utils build-essential openssh-client rsync sudo snapd apt-transport-https openjdk-11-jre openjdk-11-jdk jq dpkg-dev clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libgtk-3-0 libx11-6 libglu1-mesa libxrandr2
 
 # Set environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
@@ -18,8 +18,8 @@ RUN java -version
 # Install Android SDK command-line tools
 # RUN mkdir "$ANDROID_HOME/cmdline-tools"
 RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O android-sdk-cmdline.zip
-RUN unzip android-sdk-cmdline.zip -d "$ANDROID_HOME/cmdline-tools"
-RUN mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+RUN unzip android-sdk-cmdline.zip -d $ANDROID_HOME/cmdline-tools
+RUN mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
 RUN rm android-sdk-cmdline.zip
 
 # Accept Android licenses
@@ -31,11 +31,10 @@ RUN sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools" "cmd
 # Download & Install Node JS
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get update -y && apt-get install -y nodejs && \
-    npm install -g @angular/cli && \
     npm install -g firebase-tools
 
 # Download & Install Sentry CLI
-RUN curl -sL https://sentry.io/get-cli/ | bash
+# RUN curl -sL https://sentry.io/get-cli/ | bash
 
 # Download Flutter SDK
 RUN git clone --single-branch -b stable https://github.com/flutter/flutter.git
