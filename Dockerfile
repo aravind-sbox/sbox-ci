@@ -53,15 +53,15 @@ RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip
 # Download & Install Sentry CLI
 # RUN curl -sL https://sentry.io/get-cli/ | bash
 
+# Create a non-root user to run Flutter
+RUN useradd -ms /bin/bash flutteruser
+USER flutteruser
 # Download Flutter SDK
 RUN wget -q https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.29.0-stable.tar.xz -O flutter.tar.xz
 RUN tar -xf flutter.tar.xz
 RUN mkdir -p /flutter/bin/cache
 RUN ls -l /flutter
 ENV PATH=/flutter/bin:$PATH
-# Create a non-root user to run Flutter
-RUN useradd -ms /bin/bash flutteruser
-USER flutteruser
 # Run basic check to download Dark SDK
 RUN flutter doctor
 # Switch back to root user
