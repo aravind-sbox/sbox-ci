@@ -28,22 +28,25 @@ RUN yes | sdkmanager --licenses > /dev/null
 # Install required Android SDK components
 RUN sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools" "cmdline-tools;latest"
 
-# # Download & Install Node JS
-# RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-#     apt-get update -y && apt-get install -y nodejs && \
-#     npm install -g firebase-tools
+# Set environment variables for NVM
+ENV NVM_DIR /root/.nvm
+ENV NODE_VERSION 22
 
-# Download and install nvm:
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-# in lieu of restarting the shell
-RUN \. "$HOME/.nvm/nvm.sh"
-# Download and install Node.js:
-RUN nvm install 22
-# Verify the Node.js version:
-RUN node -v
-RUN nvm current
-# Verify npm version:
-RUN npm -v
+# Download and install NVM
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+    && . "$NVM_DIR/nvm.sh" \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# Add NVM to PATH
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# Verify installation (optional, good for debugging)
+RUN node -v \
+    && npm -v \
+    && nvm current
+
 # Install firebase tools
 RUN npm install -g firebase-tools
 
