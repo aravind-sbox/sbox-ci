@@ -53,14 +53,14 @@ RUN npm install -g firebase-tools
 # Download & Install Sentry CLI
 # RUN curl -sL https://sentry.io/get-cli/ | bash
 
-RUN mkdir -p /flutter/bin/cache
 
+# Download Flutter SDK
+RUN git clone --single-branch -b stable https://github.com/flutter/flutter.git
+RUN mkdir -p /flutter/bin/cache
+ENV PATH=$PATH:$HOME/flutter/bin
 # Create a non-root user to run Flutter
 RUN useradd -ms /bin/bash flutteruser
 USER flutteruser
-# Download Flutter SDK
-RUN git clone --single-branch -b stable https://github.com/flutter/flutter.git
-ENV PATH=$PATH:$HOME/flutter/bin
 # Run basic check to download Dark SDK
 RUN flutter doctor
 
