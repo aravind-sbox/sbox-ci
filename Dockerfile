@@ -7,7 +7,7 @@ RUN apt-get update -y && apt-get upgrade -y
 
 RUN echo "Etc/UTC" > /etc/timezone
 
-RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip xz-utils build-essential openssh-client rsync sudo apt-transport-https jq dpkg-dev clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libgtk-3-0 libx11-6 libglu1-mesa libxrandr2
+RUN apt-get install -y --fix-missing wget curl gnupg git file apt-utils nano zip unzip xz-utils build-essential openssh-client rsync sudo apt-transport-https jq dpkg-dev clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libgtk-3-0 libx11-6 libglu1-mesa libxrandr2 parallel ca-certificates
 
 # Set environment variables for NVM
 ENV NVM_DIR=/root/.nvm
